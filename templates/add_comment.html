@@ -1,0 +1,13 @@
+{% include 'links.html' %}
+{% block content %}
+<div class="card blog-container">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <textarea name="comment" class="form-control md-textarea" style="width: 80%; height: 200px;" placeholder="Type comment here"></textarea><br>
+            <button style="margin-left: 35%;" class='btn btn-info' type="submit">Post</button>
+        </form>
+    </div>
+</div>    
+
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn tpt.wsgi --log-file -

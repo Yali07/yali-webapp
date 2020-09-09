@@ -1,0 +1,31 @@
+{% include 'links.html' %}
+{% block content %}
+
+<style>
+
+</style>
+<div class="card blog-container">
+    <div class="card-body">
+        <form method="POST" enctype="multipart/form-data">
+            
+            {% csrf_token %}
+
+            <button style="margin-bottom: 30px;" class='btn btn-info float-right' type="submit">Post</button>
+            <br>
+            {{forms.title}}
+            <br>
+            <br>
+            {{forms.snippet}}
+            <br>
+            <br>
+            <input type="file" name="snippet_image">
+            {{forms.category}} 
+            <br>
+            <br>
+            {{forms.body}}
+            {{forms.media}}
+        </form>
+    </div>
+</div>    
+
+{% endblock %}

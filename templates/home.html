@@ -1,0 +1,105 @@
+{% include 'base.html' %}
+{% block content %}
+{% load static %}
+<style>
+
+    .banner{
+        background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),url("{% static 'images/jefferson-santos-9SoCnyQmkzI-unsplash.jpg' %}");
+        background-repeat: no-repeat;
+        background-position: center center;
+        -webkit-background-size: cover ;
+        background-size: cover;
+        width: 100%;
+        height: 100vh;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: -o-flex;
+        display: flex;
+        flex-flow: column;
+        color: white;
+        text-align: center;
+        align-items: center;
+    }
+    
+</style>
+
+{% if name %}
+    <div class="container">
+        <div class="card">
+            <div id="card-body" class="card-body text-center ">
+                <h3 class="card-title">Thank You for your most valuable opinion - {{name|capfirst}}</h3>
+                <p>We received your email and we will respond to your query as soon as possible. </p>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <div class="collapse show" id="collapseExample">
+        <div class='banner'>
+            <h1>Yali Programming</h1>
+            <p>இந்த தளம் தமிழில் python programming language கற்க விரும்புவர்களுக்காக உருவாக்கப்பட்டது.</p>
+            <a href="#subscribe"> Subscribe </a>
+        </div>
+    </div>
+    
+    <p class="text-center">
+        <a style="color: white;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-grip-vertical" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm3 3a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm0-3a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+        </a>
+    </p>
+    
+    <div style="background-color: white;" class="container">
+        <div class="row">
+            {% for blog in blogs %}
+                <div class="col-md-6">
+                    <div class="home-card card shadow-lg p-3 mb-5 rounded">
+                        <div class="card-body">
+                            {% if blog.snippet_image %}
+                                <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blog.snippet_image.url}}" alt="Python Snippet image">
+                            {% endif %}
+                            <br>
+                            <h4 class=" title card-title">{{blog.title|capfirst}}</h4>
+                            <p class="card-title">{{blog.date}}</p>
+                           <p class= "card-text card-snippet">{{blog.snippet}}.....</p>
+                           <br>
+                            <a href="{% url 'post-detail' blog.slug %}" class="btn btn-outline-primary">Read </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+        <br>
+    
+        <div class="text-center">
+            {% if blog.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+            {% endif %}
+            {% for num in blog.paginator.page_range %}
+                {% if blog.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{num}} ">{{num}}</a>
+                {% elif num > blog.number|add:'-3' and num < blog.number|add:'3'%}
+                    <a class="btn btn-outline-info mb-4" href="?page={{num}} ">{{num}}</a>
+                {% endif %}
+            {% endfor %}
+            {% if blog.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{blog.paginator.num_pages}}">Last</a>
+            {% endif %}
+        </div>
+    </div>
+    <br>
+    <br>
+    
+        {% include 'subscribe.html' %} 
+        <br>
+        <br>
+   <div  class="container">
+        {% include 'contact.html' %}
+    </div>
+    
+{% include 'footer.html' %}
+
+{% endif %}
+
+{% endblock %}

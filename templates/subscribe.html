@@ -1,0 +1,18 @@
+<div class="container">
+    <div id="subscribe" class="sc-title">
+        <h2   class="card-title text-center">Get our NewsLetters</h2><br>
+        <form method='POST' class="form-inline my-2 my-sm-0 align-center">
+            {% csrf_token %}
+            <input name='subscribers' class="form-control subscribe-input " type="email" placeholder="eg: example@gmail.com">
+            <button class="subscribe-btn" type="submit"> 
+                Subscribe
+            </button>
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red;">{{message}}</p>
+                {% endfor %}
+            {% endif %}
+        </form>
+    </div>
+</div>
+        

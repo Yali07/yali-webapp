@@ -1,0 +1,52 @@
+{% include 'base.html' %}
+{% block content %}
+{% if categories %}
+<br>
+<div style="background-color: white;" class="container">
+    <div class="row">
+        {% for blogs in categories %}
+             <div class="col-md-6">
+                    <div class="home-card card shadow-lg p-3 mb-5 rounded">
+                        <div class="card-body">
+                            {% if blogs.snippet_image %}
+                                <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blogs.snippet_image.url}}" alt="Python Snippet image">
+                            {% endif %}
+                            <br>
+                            <h4 class="card-title">{{blogs.title|capfirst}}</h4>
+                            <p class="card-title">{{blogs.date}}</p>
+                           <p class= "card-text card-snippet">{{blogs.snippet}}...</p>
+                           <br>
+                            <a href="{% url 'post-detail' blogs.slug %}" class="btn btn-outline-primary">Read </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+</div>
+{% else %}
+<div class="blog-container">
+    <br>
+    <h1>Sorry this category doesn't exists</h1>
+    <br>
+    <h3>Available Categories :</h3>
+    <br>
+    <ul>
+        {% for categories in category %}
+            <li>
+                <a href="{% url 'view_category' categories %}">{{categories}}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <br>
+</div>
+{% endif %}
+<br>
+<br>
+
+{% include 'subscribe.html' %} 
+<br>
+<br>
+{% include 'contact.html' %}
+
+{% include 'footer.html' %}
+{% endblock %}

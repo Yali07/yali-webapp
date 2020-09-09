@@ -1,0 +1,124 @@
+
+{% include 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="card blog-container">
+        <div class="card-body text-size">
+            <h1 class="card-title">{{blog.title}}</h1>
+            <p>{{blog.date|date:'F d,Y'}}</p>
+            <div class="addthis_inline_share_toolbox">
+            </div>
+            <p class="card-text " style="color: black;">{{blog.body|safe}}</p>
+            
+            <div class="addthis_inline_share_toolbox">
+                <h4 style="margin-bottom: 15px;">Share :</h4>
+            </div>
+        </div>
+    <hr>
+        <br>
+    {% if user.is_authenticated %}
+        <h4 class="comment">Comments<label class="btn btn-outline-info btn-sm" style="border-radius: 50%; margin-left: 10px;" >{{blog.comments.all.count}}</label> <a class="btn btn-outline-info float-right" href="{% url 'add_comment' blog.slug %}">Leave comment</a></h4><br>
+    {% else %}
+        <h4 class="comment">Comments<label class="btn btn-info btn-sm" style="border-radius: 50%; margin-left: 10px;" >{{blog.comments.all.count}}</label> <a class="btn btn-outline-info float-right" href="{% url 'comment_signup' blog.slug %}">Leave comment</a></h4><br>
+    {% endif %}
+    {% if blog.comments.all %}
+        {% for comment in blog.comments.all %}
+            <div style="margin-left: 20px;" class="media">
+            
+            {% if comment.user.username|first == 'S' or comment.user.username|first == 'Q' or comment.user.username|first == 'F' or comment.user.username|first == 's' or comment.user.username|first == 'q' or comment.user.username|first == 'f' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:PURPLE;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: PURPLE;" >{{comment.user.username|capfirst}}</h5>
+            
+            {% elif comment.user.username|first == 'M' or comment.user.username|first == 'U' or comment.user.username|first == 'V' or comment.user.username|first == 'm' or comment.user.username|first == 'u' or comment.user.username|first == 'v' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:green;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: green;" >{{comment.user.username|capfirst}}</h5>
+        
+            {% elif comment.user.username|first == 'J' or comment.user.username|first == 'X' or comment.user.username|first == 'H' or comment.user.username|first == 'P' or comment.user.username|first == 'j' or comment.user.username|first == 'x' or comment.user.username|first == 'h' or comment.user.username|first == 'p' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:BLUE;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: BLUE;" >{{comment.user.username|capfirst}}</h5>
+            
+            {% elif comment.user.username|first == 'D' or comment.user.username|first == 'Z' or comment.user.username|first == 'N' or comment.user.username|first == 'T' or comment.user.username|first == 'd' or comment.user.username|first == 'z' or comment.user.username|first == 'n' or comment.user.username|first == 't' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:darkorange;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: darkorange;" >{{comment.user.username|capfirst}}</h5>
+            
+            {% elif comment.user.username|first == 'C' or comment.user.username|first == 'O' or comment.user.username|first == 'W' or comment.user.username|first == 'L' or comment.user.username|first == 'c' or comment.user.username|first == 'o' or comment.user.username|first == 'w' or comment.user.username|first == 'l' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color: TEAL;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: TEAL;" >{{comment.user.username|capfirst}}</h5>
+            
+            {% elif comment.user.username|first == 'B' or comment.user.username|first == 'I' or comment.user.username|first == 'G' or comment.user.username|first == 'R' or comment.user.username|first == 'b' or comment.user.username|first == 'i' or comment.user.username|first == 'g' or comment.user.username|first == 'r' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:DARKSLATEGRAY;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: DARKSLATEGRAY;" >{{comment.user.username|capfirst}}</h5>
+            
+            {% elif comment.user.username|first == 'K' or comment.user.username|first == 'Y' or comment.user.username|first == 'E' or comment.user.username|first == 'A' or comment.user.username|first == 'k' or comment.user.username|first == 'y' or comment.user.username|first == 'e' or comment.user.username|first == 'a' %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:MAROON;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: MAROON;" >{{comment.user.username|capfirst}}</h5>
+            {% else %}
+                <h5 class="btn" style="color:white; border-radius:50%; margin-right:15px;background-color:black;">{{comment.user.username|capfirst|first}}</h5>
+                <div class="media-body">
+                    <h5 id="username" style="color: black;" >{{comment.user.username|capfirst}}</h5>
+            {% endif %}
+                    <p style="color: grey; font-size:13px;">{{ comment.date_added|date:"F d, Y" }}</p>
+                    <p style="margin-left: 20px;">{{comment.comment}} </p>
+                    <hr style="color: darkgray;">
+                    <!-- <button style="border: 1px solid black; padding:10px;" onclick="colorCode()">yahoo</button> -->
+                </div>
+                
+            </div>
+        {% endfor %}
+    {% else %}
+        <hr>
+        <p class="text-center" style="color: darkgray;">A opinion can change a man's life. <br> So leave your opinion here.</p>
+        <hr>
+        <br>
+    {% endif %}
+
+	<hr>
+    <br>
+    <h3 >Latest Post</h3>
+    <br>
+    <div class="row">
+        <div class="col-md">
+            {% for blogs in latest_post %}
+                <div class="card">
+                    <div class="card-body text-size">
+                        <img src="{{blogs.snippet_image.url}}" class="img-fluid mr-3 rounded mx-auto d-block " alt="..." width="200px" >
+                        <br>
+                        <h4 class="card-title">{{blogs.title|capfirst}}</h4>
+                        <p class="card-text">{{blogs.snippet|safe}}.....</p>
+                        <a href="{% url 'post-detail' blogs.slug %}" class="stretched-link">Read More</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+	</div>
+</div>
+<br>
+<br>
+{% include 'subscribe.html' %}
+<br>
+<br>
+{% include 'contact.html' %}
+<br>
+{% include 'footer.html' %}
+<script type = "text/javascript">
+    let progressbar = document.querySelector(".scrollpath");
+    let totalheight = document.body.scrollHeight - window.innerHeight;
+    window.onscroll = function(){
+    let progressheight = (window.pageYOffset / totalheight) * 100;
+    progressbar.style.width= progressheight + "%" ;
+    }
+</script>
+
+
+{% endblock %}
+
+
+

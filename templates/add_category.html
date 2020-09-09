@@ -1,0 +1,16 @@
+{% include 'links.html' %}
+{% block content %}
+
+
+<div class="card home-card blog-container">
+    <div class="card-body">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="nmae" >
+            <input type="submit">
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

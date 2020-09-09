@@ -1,0 +1,19 @@
+{% include 'links.html' %}
+{% block content %}
+
+
+<div class="card blog-container">
+    <div class="card-body">
+        <p>Are you sure you want to delete <b>{{item.title}}</b>.</p>
+        <form method="POST">
+            {% csrf_token %}
+            <a class="btn btn-info" href="{% url 'home' %}">Cancel</a>
+            <button class="btn btn-danger" type="submit">Delete</button>
+        </form>
+
+    </div>
+</div>    
+
+{% endblock %}
+
+

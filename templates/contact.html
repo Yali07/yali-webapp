@@ -1,0 +1,25 @@
+<br>
+<div class="container">
+<h2 style="color: white;" id="contact_us" class="text-center">Get in Touch</h2><br>
+<p style="color: white;" class="text-center">Do not hesitate to contact us. Ask any questions you want. We answer your question as soon as possible. </p>
+<br>
+<br>
+<form action="{% url 'home' %}" id="contact-form" name="contact-form" method="POST">
+    {% csrf_token %}
+    <div class="form-inline">
+        <div class="form-group mb-2">
+            <label for="name" class="sr-only">Nmae</label>
+            <input style=" height:50px; margin-left:10px;" type="text" id="subject" name="name" class="form-control" placeholder="eg: Mathan" required>
+        </div>
+        <div class="form-group mb-2">
+            <label for="staticEmail2" class="sr-only">Email</label>
+            <input style="height:50px; margin-left:10px;" type="email" id="email" name="email" class="form-control" placeholder="eg: example@gmail.com" required>
+        </div>
+    </div>
+    <br>
+    <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea " placeholder="Type your message" required></textarea>
+    <br>
+    <button style="margin-left: 55%;" type="submit" class="btn btn-primary mb-2 ">Send</button>
+</form>
+</div>
+<br>

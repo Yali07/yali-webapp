@@ -1,0 +1,25 @@
+{% block content %}
+<h1>Thank you for subscribe</h1>
+<br>
+<div>
+    <br>
+    <h3 >Latest Post</h3><br>
+    
+    <ul>
+        {% for blogs in latest_post %}
+        <div>
+            {% if blogs.snippet_image %}
+                <img src="{{blogs.snippet_image.url}}" alt="python" width="100px" >
+            {% endif %}
+            <div>
+              <h3>{{blogs.title|capfirst}}</h3>
+              <p style="text-justify:distribute;">{{blogs.snippet|safe}}.....</p>
+              <a href="{% url 'post-detail' blogs.slug %}">Read More</a>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+    </ul> 
+</div>
+{% endblock %}
+

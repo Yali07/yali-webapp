@@ -1,0 +1,19 @@
+{% include 'links.html' %}
+{% block content %}
+<!--Section: Contact v.2-->
+<br>
+<form style="margin: 10px;" action="{% url 'newsletters' %}" method='POST' enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-inline">
+    <input style="width: 500px;" type="text" name="subject" class="form-control" placeholder="type message here" required>
+    <button style="margin-left:30px;"class="btn btn-info" type="submit">Send</button>
+    </div>
+    <br>
+    {{forms.message}}
+    {{forms.media}}
+    <br>
+    <br>
+    
+</form>
+{% endblock %}
+<!--Section: Contact v.2-->
