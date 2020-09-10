@@ -308,7 +308,7 @@ def view_category(request,pk):
     return render(request,'view_category.html',{'categories':categories,'category':category})
 
 #Admin Dashboard
-#@superuser_only
+@superuser_only
 def dashboard(request):
     blog = BlogPost.objects.all().order_by('-date')
     myfilter = BlogFilter(request.GET,queryset=blog)
@@ -324,7 +324,7 @@ def dashboard(request):
         forms = CategoryForm()
     
     return render(request,'dashboard.html',{'blog':blog,'forms':forms,'myfilter':myfilter})
-#@superuser_only
+@superuser_only
 def newsletter(request):
     latest_post = BlogPost.objects.all().order_by('-date')[1:5]
     email = Subscribe.objects.all()
@@ -365,7 +365,7 @@ def newsletter(request):
         forms = NewslettertForm()
     return render(request,'newsletters.html',{'forms':forms})
 # Create, Update, Delete post section
-#@superuser_only
+@superuser_only
 def new_post(request):
     latest_post = BlogPost.objects.all().order_by('-date')[0:1]
     email = Subscribe.objects.all()
@@ -399,7 +399,7 @@ def new_post(request):
     else:
         forms = NewPostCreateForm()
     return render(request,'new-post.html',{'forms':forms})
-#@superuser_only
+@superuser_only
 def update_post(request,slug):
     blog = BlogPost.objects.get(slug=slug)
     forms = NewPostCreateForm(instance=blog)
@@ -411,7 +411,7 @@ def update_post(request,slug):
         else:
             print('form invalid')
     return render(request,'new-post.html',{'forms':forms})
-#@superuser_only
+@superuser_only
 def delete_post(request,slug):
     blog_post = BlogPost.objects.get(slug=slug)
     if request.method == 'POST':
@@ -419,18 +419,4 @@ def delete_post(request,slug):
         return redirect('/')
     return render(request,'delete_post.html',{'item':blog_post})
 
-# Create,View category section
-#@superuser_only
-# def add_category(request):
-#     forms = CategoryForm()
-#     if request.method == 'POST':
-#         forms = CategoryForm(request.POST)
-#         if forms.is_valid():
-#             forms.save()
-#             return redirect('dashboard')
-#         else:
-#             print('form invalid')
-#     else:
-#         forms = CategoryForm()
-#     return render(request,'add_category.html',{'forms':forms})
 
