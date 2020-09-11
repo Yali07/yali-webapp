@@ -1,11 +1,11 @@
 from django import forms
 from .models import BlogPost, Comment, Category, Subscribe, NewsLetter
 
-choices = Category.objects.all().values_list('category_name','category_name')
+# choices = Category.objects.all().values_list('category_name','category_name')
 
-choice_list =[]
-for choice in choices:
-    choice_list.append(choice)
+# choice_list =[]
+# for choice in choices:
+#     choice_list.append(choice)
 
 class NewPostCreateForm(forms.ModelForm):
     class Meta:
@@ -13,7 +13,7 @@ class NewPostCreateForm(forms.ModelForm):
         fields = '__all__'
         exclude = ['slug']
         widgets = {
-            'category': forms.Select(choices=choice_list),
+            # 'category': forms.Select(choices=choice_list),
             'title': forms.TextInput(attrs={'class':'form-control','placeholder':'Title'}),
             'snippet': forms.TextInput(attrs={'class':'form-control md-textarea','placeholder':'Snippet text'})
         }
