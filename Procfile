@@ -1,1 +1,1 @@
-web: gunicorn tpt.wsgi --log-file -
+web: gunicorn tpt.wsgi 
