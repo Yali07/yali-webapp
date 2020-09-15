@@ -18,7 +18,7 @@
     <hr>
         <br>
     {% if user.is_authenticated %}
-        <h4 class="comment">Comments<label class="btn btn-outline-info btn-sm" style="border-radius: 50%; margin-left: 10px;" >{{blog.comments.all.count}}</label> <a class="btn btn-outline-info float-right" href="{% url 'add_comment' blog.slug %}">Leave comment</a></h4><br>
+        <h4 class="comment">Comments<label class="btn btn-info btn-sm" style="border-radius: 50%; margin-left: 10px;" >{{blog.comments.all.count}}</label> <a class="btn btn-outline-info float-right" href="{% url 'add_comment' blog.slug %}">Leave comment</a></h4><br>
     {% else %}
         <h4 class="comment">Comments<label class="btn btn-info btn-sm" style="border-radius: 50%; margin-left: 10px;" >{{blog.comments.all.count}}</label> <a class="btn btn-outline-info float-right" href="{% url 'comment_signup' blog.slug %}">Leave comment</a></h4><br>
     {% endif %}
