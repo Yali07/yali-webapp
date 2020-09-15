@@ -20,11 +20,11 @@ class BlogPost(models.Model):
         self.slug = slugify(self.title)
         super().save(*args,**kwargs)
         
-        img = Image.open(self.snippet_image.path)
-        if img.height > 250 or img.width > 250:
-            output_size = (250,250)
-            img.thumbnail(output_size)
-            img.save(self.snippet_image.path)
+        # img = Image.open(self.snippet_image.path)
+        # if img.height > 250 or img.width > 250:
+        #     output_size = (250,250)
+        #     img.thumbnail(output_size)
+        #     img.save(self.snippet_image.path)
         
         
     def get_absolute_url(self):
