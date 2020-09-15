@@ -3,14 +3,11 @@
 {% block content %}
     {% for blogs in latest_post %}
         <div>
-            {% if blogs.snippet_image %}
-                <img src="{{blogs.snippet_image.url}}" alt="python" width="300px" >
-            {% endif %}
             <div>
                 <h2>{{blogs.title|capfirst}}</h2>
                 <span>
                     <p style="text-justify:distribute; font-size:30px;">{{blogs.snippet|safe}}.....</p>
-                    <a href="{% url 'post-detail' blogs.slug %}">Read More</a>
+                    <a href="https:\\yaliprogramming.herokuapp.com">Read More</a>
                 </span>
             </div>
         </div>
