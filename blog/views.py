@@ -286,7 +286,7 @@ def comment_signup(request,slug):
         else:
             messages.info(request,"Your password must contain atleast 8 characters")
     else:
-        messages.info(request,"post failed try again")
+        return redirect('post-detail',slug=slug)
     return render(request,'users/comment_signup.html',{'blog': post})
 #@user_only
 def comment_signin(request,slug):
@@ -302,7 +302,7 @@ def comment_signin(request,slug):
         else:
             messages.info(request,'Invalid username or password')
     else:
-        messages.info(request,"post failed try again")
+        return redirect('post-detail',slug=slug)
     return render(request,'users/comment_signin.html',{'blog': post})
 def signout(request):
     auth.logout(request)
