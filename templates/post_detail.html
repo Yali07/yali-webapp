@@ -89,16 +89,16 @@
             {% for blogs in latest_post %}
                 <div class="card">
                     <div class="card-body text-size">
-                        <img src="{{blogs.snippet_image.url}}" class="img-fluid mr-3 rounded mx-auto d-block " alt="..." width="200px" >
-                        <br>
+                        <!-- <img src="{{blogs.snippet_image.url}}" class="img-fluid mr-3 rounded mx-auto d-block " alt="..." width="200px" > -->
                         <h4 class="card-title">{{blogs.title|capfirst}}</h4>
                         <p class="card-text">{{blogs.snippet|safe}}.....</p>
                         <a href="{% url 'post-detail' blogs.slug %}" class="stretched-link">Read More</a>
                     </div>
                 </div>
             {% endfor %}
+            <br>
         </div>
-	</div>
+    </div>
 </div>
 <br>
 <br>

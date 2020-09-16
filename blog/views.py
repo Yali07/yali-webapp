@@ -232,11 +232,13 @@ def signup(request):
                             return redirect('/')
                         else:
                             messages.info(request,"Somthing went wrong please signup again")
+                            return redirect('signup')
             else:
                 messages.info(request,"password not match")
                 return redirect('signup')
         else:
             messages.info(request,"Your password must contain atleast 8 characters")
+            return redirect('signup')
     else:
         return render(request,'users/signup.html')
 #@user_only
@@ -283,6 +285,8 @@ def comment_signup(request,slug):
                 messages.info(request,"password not match")
         else:
             messages.info(request,"Your password must contain atleast 8 characters")
+    else:
+        messages.info(request,"post failed try again")
     return render(request,'users/comment_signup.html',{'blog': post})
 #@user_only
 def comment_signin(request,slug):
@@ -297,6 +301,8 @@ def comment_signin(request,slug):
             return redirect('post-detail', slug=slug)
         else:
             messages.info(request,'Invalid username or password')
+    else:
+        messages.info(request,"post failed try again")
     return render(request,'users/comment_signin.html',{'blog': post})
 def signout(request):
     auth.logout(request)

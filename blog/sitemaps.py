@@ -11,6 +11,6 @@ class BlogPostSitemap(Sitemap):
 	def items(self):
 		changefreq = "hourly"
 		priority = 0.5
-		return BlogPost.objects.all()
+		return "blog/" + BlogPost.objects.all()
 	def lastmod(self, obj):
 		return obj.date

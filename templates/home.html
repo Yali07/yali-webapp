@@ -55,12 +55,12 @@
                 <div class="col-md-6">
                     <div class="home-card card shadow-lg p-3 mb-5 rounded">
                         <div class="card-body">
-                            {% if blog.snippet_image %}
+                            <!-- {% if blog.snippet_image %}
                                 <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blog.snippet_image.url}}" alt="{{blog.slug}}.jpg">
-                            {% endif %}
+                            {% endif %} -->
                             <br>
                             <h4 class=" title card-title">{{blog.title|capfirst}}</h4>
-                            <p class="card-title">{{blog.date}}</p>
+                            <p class="card-title">{{blog.date|date:'F d,Y'}}</p>
                            <p class= "card-text card-snippet">{{blog.snippet}}.....</p>
                            <br>
                             <a href="{% url 'post-detail' blog.slug %}" class="btn btn-outline-primary">Read </a>

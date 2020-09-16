@@ -11,7 +11,7 @@ class NewPostCreateForm(forms.ModelForm):
     class Meta:
         model = BlogPost
         fields = '__all__'
-        exclude = ['slug']
+        exclude = ['slug','snippet_image']
         widgets = {
             'category': forms.Select(choices=choice_list),
             'title': forms.TextInput(attrs={'class':'form-control','placeholder':'Title'}),
