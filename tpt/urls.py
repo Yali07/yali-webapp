@@ -21,7 +21,7 @@ from blog import views
 from django.contrib.sitemaps import views
 from  blog.sitemaps import StaticViewSitemap, BlogPostSitemap
 
-sitemaps = {"static": StaticViewSitemap,"blogpost":BlogPostSitemap}
+sitemaps = {"static": StaticViewSitemap,"blogpost":"blog/" + BlogPostSitemap}
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('blog.urls')),

@@ -14,5 +14,3 @@ class BlogPostSitemap(Sitemap):
 		return BlogPost.objects.all()
 	def lastmod(self, obj):
 		return obj.date
-	def location(self, items):
-		return reverse('blog/'+items)
