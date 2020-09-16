@@ -28,7 +28,7 @@ class BlogPost(models.Model):
         
         
     def get_absolute_url(self):
-    	return f"blog/{self.slug}"      
+    	return f"/blog/{self.slug}"      
         
 class Comment (models.Model):
 
