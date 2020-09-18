@@ -8,7 +8,6 @@ for choice in choices:
     choice_list.append(choice)
 
 class NewPostCreateForm(forms.ModelForm):
-    img_url = forms.CharField(required=True)
     class Meta:
         model = BlogPost
         fields = '__all__'
