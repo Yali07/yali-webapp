@@ -115,11 +115,12 @@
     min-width: 150px;
  }
      .text-size{
-      line-height: minmax(20px,45px);
-      font-size: minmax(15px, 25px);
-      word-spacing: minmax(3px,6px);
+      line-height: 40px;
+      font-size: 18px;
+      word-spacing: 3px;
       word-wrap: unset;
       text-justify: auto;
+      margin-top: 20px;
   }
 
     .align-center{
@@ -251,6 +252,14 @@
   .banner p {
       font-size: 17px;
       }
+  .text-size {
+    line-height: 25px;
+    font-size: 15px;
+    word-spacing: 3px;
+    word-wrap: unset;
+    text-justify: auto;
+    margin-top: 20px;
+    }
  
   }
 @media screen and (min-width: 769px) {  

@@ -8,6 +8,7 @@ for choice in choices:
     choice_list.append(choice)
 
 class NewPostCreateForm(forms.ModelForm):
+    img_url = forms.CharField(required=True)
     class Meta:
         model = BlogPost
         fields = '__all__'
@@ -15,6 +16,7 @@ class NewPostCreateForm(forms.ModelForm):
         widgets = {
             'category': forms.Select(choices=choice_list),
             'title': forms.TextInput(attrs={'class':'form-control','placeholder':'Title'}),
+            'snippet_img_url': forms.TextInput(attrs={'class':'form-control','placeholder':'Type Image URL '}),
             'snippet': forms.TextInput(attrs={'class':'form-control md-textarea','placeholder':'Snippet text'})
         }
 class CommentForm(forms.ModelForm):

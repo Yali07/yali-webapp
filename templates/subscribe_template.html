@@ -9,6 +9,9 @@
         {% for blogs in latest_post %}
         <div>
             <div>
+              {% if blogs.snippet_img_url %}  
+                <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
+              {% endif %}  
               <h3>{{blogs.title|capfirst}}</h3>
               <p style="text-justify:distribute;">{{blogs.snippet|safe}}.....</p>
               <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>

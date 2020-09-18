@@ -4,6 +4,10 @@
     {% for blogs in latest_post %}
         <div>
             <div>
+                {% if blogs.snippet_img_url %}  
+                    <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
+                {% endif %}
+                <br>
                 <h2>{{blogs.title|capfirst}}</h2>
                 <span>
                     <p style="text-justify:distribute; font-size:30px;">{{blogs.snippet|safe}}.....</p>

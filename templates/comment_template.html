@@ -1,6 +1,6 @@
 {% include 'links.html' %}
 {% block content %}
-<h2>Post: <a href="{% url 'post-detail' post.slug %}">{{post.title|capfirst}}</a></h2>
+<h2>Post: <a href="https://yaliprogramming.herokuapp.com/blog/{{post.slug}}">{{post.title|capfirst}}</a></h2>
 <h4>Username: <strong style="color: red;">{{user_name|capfirst}}</strong></h4>
 <p>Comment : {{opinion}}</p>
 {% endblock %}

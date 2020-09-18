@@ -14,6 +14,7 @@ class BlogPost(models.Model):
     body = RichTextUploadingField(null=True)
     snippet = models.CharField(max_length=200,blank=True,null=True)
     snippet_image= models.ImageField(blank=True,null=True,upload_to='snippet_pics')
+    snippet_img_url = models.CharField(max_length=500,null=True,blank=True)
     def __str__(self):
     	return self.title
     def save(self, *args,**kwargs):
