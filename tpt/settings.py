@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x3=#u-_bk$s6qjxwrw$6yk8ut9u47f(z7mxp)t#n%$g7i!@_#d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'True')
+DEBUG = False #(os.environ.get('DEBUG_VALUE') == 'True')
 
 ALLOWED_HOSTS = ['yaliprogramming.herokuapp.com']
 
@@ -124,7 +124,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFileStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
