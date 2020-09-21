@@ -1,19 +1,42 @@
-
-
-{% block content %}
-    {% for blogs in latest_post %}
-        <div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newpost Newsletter</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+</style>
+</head>
+<body>
+    {% block content %}
+        {% for blogs in latest_post %}
             <div>
-                {% if blogs.snippet_img_url %}  
-                    <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
-                {% endif %}
-                <br>
-                <h2>{{blogs.title|capfirst}}</h2>
-                <span>
-                    <p style="text-justify:distribute; font-size:30px;">{{blogs.snippet|safe}}.....</p>
-                    <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
-                </span>
+                <div>
+                    {% if blogs.snippet_img_url %}  
+                        <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
+                    {% endif %}
+                    <br>
+                    <h2>{{blogs.title|capfirst}}</h2>
+                    <span>
+                        <p style="text-justify:distribute; font-size:30px;">{{blogs.snippet|safe}}.....</p>
+                        <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
+                    </span>
+                </div>
             </div>
-        </div>
-    {% endfor %}
-{% endblock %}
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>
+

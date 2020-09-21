@@ -1,25 +1,51 @@
-{% block content %}
-<h1>Thank you for subscribe</h1>
-<br>
-<div>
-    <br>
-    <h3 >Latest Post</h3><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscribe Email</title>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
     
-    <ul>
-        {% for blogs in latest_post %}
-        <div>
+    img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 200px;
+    }
+</style>
+</head>
+<body>
+  {% block content %}
+    <h1>Thank you for subscribe</h1>
+    <br>
+    <div>
+        <br>
+        <h3 >Latest Post</h3><br>
+        
+        <ul>
+            {% for blogs in latest_post %}
             <div>
-              {% if blogs.snippet_img_url %}  
-                <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
-              {% endif %}  
-              <h3>{{blogs.title|capfirst}}</h3>
-              <p style="text-justify:distribute;">{{blogs.snippet|safe}}.....</p>
-              <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
+                <div>
+                  {% if blogs.snippet_img_url %}  
+                    <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
+                  {% endif %}  
+                  <h3>{{blogs.title|capfirst}}</h3>
+                  <p style="text-justify:distribute;">{{blogs.snippet|safe}}.....</p>
+                  <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
+                </div>
             </div>
-        </div>
-        <hr>
-        {% endfor %}
-    </ul> 
-</div>
-{% endblock %}
+            <hr>
+            {% endfor %}
+        </ul> 
+    </div>
+  {% endblock %}
+</body>
+</html>
+
+
 
