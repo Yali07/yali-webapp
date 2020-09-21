@@ -50,7 +50,7 @@ def home(request):
             email_msg = EmailMessage(
                 'New contact form submission',
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 ['mathanbba56@gmail.com'],
                 headers = { 'Reply-To': email }
             )
@@ -60,7 +60,7 @@ def home(request):
     else:
         forms = ContactForm()
     # Subscribe Form
-    latest_post = BlogPost.objects.all().order_by('-date')[1:5]
+    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
     email = Subscribe.objects.all()
     subscribers = []
     for emails in email:
@@ -80,7 +80,7 @@ def home(request):
             email = EmailMessage(
                 'Thank you',
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 [user_email],
             )
             email.content_subtype = 'html'
@@ -128,7 +128,7 @@ def post_detail(request,slug):
             email_msg = EmailMessage(
                 'New contact form submission',
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 ['mathanbba56@gmail.com'],
                 headers = { 'Reply-To': email }
             )
@@ -156,7 +156,7 @@ def post_detail(request,slug):
             email = EmailMessage(
                 'Thank you',
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 [email],
             )
             email.content_subtype = 'html'
@@ -193,7 +193,7 @@ def add_comment(request,slug):
             email = EmailMessage(
                 'New comment',
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 ['mathanbba56@gmail.com'],
             )
             email.content_subtype = 'html'
@@ -356,7 +356,7 @@ def newsletter(request):
             email = EmailMessage(
                 newsletter_subject,
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 subscribers,
             )
             email.content_subtype = 'html'
@@ -392,7 +392,7 @@ def new_post(request):
             email = EmailMessage(
                 post_title,
                 content,
-                'Tamil Python Tutorial' + '',
+                'Yali Programming' + '',
                 subscribers,
             )
             email.content_subtype = 'html'

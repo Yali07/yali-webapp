@@ -89,8 +89,10 @@
             {% for blogs in latest_post %}
                 <div class="card">
                     <div class="card-body text-size">
-                        {% if blog.snippet_img_url %}
-                            <img src="{{blogs.snippet_img_url}}" class="img-fluid mr-3 rounded mx-auto d-block " alt="{{blogs.slug}}.jpg" width="200px" >
+                        {% if blogs.snippet_img_url %}
+                            <a href="{{blogs.snippet_img_url}}">
+                                <img src="{{blogs.snippet_img_url}}" class="img-fluid mr-3 rounded mx-auto d-block " alt="{{blogs.slug}}.jpg" width="200px" >
+                            </a>
                         {% endif %}
                         <h4 class="card-title">{{blogs.title|capfirst}}</h4>
                         <p class="card-text">{{blogs.snippet|safe}}.....</p>

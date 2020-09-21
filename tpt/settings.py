@@ -25,7 +25,7 @@ SECRET_KEY = 'x3=#u-_bk$s6qjxwrw$6yk8ut9u47f(z7mxp)t#n%$g7i!@_#d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['yaliprogramming.herokuapp.com']
+ALLOWED_HOSTS = ['yaliprogramming.herokuapp.com','127.0.0.1']
 
 
 # Application definition

@@ -56,7 +56,9 @@
                     <div class="home-card card shadow-lg p-3 mb-5 rounded">
                         <div class="card-body">
                             {% if blog.snippet_img_url %}
-                                <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blog.snippet_img_url}}" alt="{{blog.slug}}.jpg">
+                                <a href="{{blog.snippet_img_url}}">
+                                    <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blog.snippet_img_url}}" alt="{{blog.slug}}.jpg">
+                                </a>
                             {% endif %}
                             <br>
                             <h4 class=" title card-title">{{blog.title|capfirst}}</h4>

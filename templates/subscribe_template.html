@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Subscribe Email</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe Greeting</title>
 <style>
     *{
         margin: 0;
@@ -17,35 +17,56 @@
         margin-right: auto;
         width: 200px;
     }
+    #snippet{
+      line-height: 40px;
+      font-size: 18px;
+      word-spacing: 3px;
+      word-wrap: unset;
+      text-justify: auto;
+      margin-top: 20px;
+      color: black;
+    }
+    @media screen and (max-width: 768px) {
+      #snippet{
+        line-height: 20px;
+        font-size: 15px;
+        word-spacing: 3px;
+        word-wrap: unset;
+        text-justify: auto;
+        margin-top: 20px;
+        color: black;
+      }
+      img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100px;
+    }
+    }
 </style>
 </head>
 <body>
-  {% block content %}
-    <h1>Thank you for subscribe</h1>
-    <br>
-    <div>
-        <br>
-        <h3 >Latest Post</h3><br>
-        
-        <ul>
-            {% for blogs in latest_post %}
-            <div>
-                <div>
-                  {% if blogs.snippet_img_url %}  
-                    <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
-                  {% endif %}  
-                  <h3>{{blogs.title|capfirst}}</h3>
-                  <p style="text-justify:distribute;">{{blogs.snippet|safe}}.....</p>
-                  <a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
-                </div>
-            </div>
-            <hr>
-            {% endfor %}
-        </ul> 
-    </div>
-  {% endblock %}
+    {% block content %}
+      <h1 style="color: black;">Thank You for Subscribe</h1>
+      <br>
+      <br>
+      <h2 style="color: black;">Latest Blogs</h2>
+      <br>
+        {% for blogs in latest_post %}
+          {% if blogs.snippet_img_url %}  
+              <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
+          {% endif %}
+          <br>
+          <h2 style="color: black;">{{blogs.title|capfirst}}</h2>
+          <br>
+          <p id = "snippet">
+            {{blogs.snippet|safe}}.....<a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
+          </p>
+          <br>
+          <hr>
+          <br>
+        {% endfor %}
+    {% endblock %}
 </body>
 </html>
-
-
 
