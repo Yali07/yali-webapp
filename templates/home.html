@@ -57,7 +57,7 @@
                         <div class="card-body">
                             {% if blog.snippet_img_url %}
                                 <a href="{{blog.snippet_img_url}}">
-                                    <img class="img-fluid mr-3 rounded mx-auto d-block " src="{{blog.snippet_img_url}}" alt="{{blog.slug}}.jpg">
+                                    <img class="img-fluid mr-3 rounded mx-auto d-block snip-img" src="{{blog.snippet_img_url}}" alt="{{blog.slug}}.jpg">
                                 </a>
                             {% endif %}
                             <br>
@@ -65,7 +65,7 @@
                             <p class="card-title">{{blog.date|date:'F d,Y'}}</p>
                            <p class= "card-text card-snippet">{{blog.snippet}}.....</p>
                            <br>
-                            <a href="{% url 'post-detail' blog.slug %}" class="btn btn-outline-primary">Read </a>
+                            <a href="{% url 'post-detail' blog.slug %}" class="btn btn-outline-primary post_url">Read </a>
                         </div>
                     </div>
                 </div>

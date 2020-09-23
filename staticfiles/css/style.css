@@ -105,15 +105,15 @@
 		align-items: center;
 		height: minmax(400px,550px);
     }
-     .home-card a {
-	   position: absolute;
-     bottom: 20px;
-     right: 40%;
+  .home-card .post_url {
+      position: absolute;
+      bottom: 1em;
+      left: 40%;
+    }
+  .home-card .snip-img{
+      max-width: 250px;
+      min-width: 150px;
    }
-  .home-card img {
-    max-width: 250px;
-    min-width: 150px;
- }
      .text-size{
       line-height: 40px;
       font-size: 18px;
