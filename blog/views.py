@@ -87,6 +87,13 @@ def home(request):
             
             # email.attach(image.name,image.read(),image.content_type)
             email.send()
+            new_subscribe = EmailMessage(
+                'New Subscriber',
+                user_email,
+                'Yali Programming' + '',
+                ['mathanbba56@gmail.com'],
+            )
+            new_subscribe.send()
             return redirect('home')
         else:
             subscribe = SubscribeForm()
@@ -147,7 +154,7 @@ def post_detail(request,slug):
         subscribe = SubscribeForm(request.POST)
         if subscribe.is_valid():
             subscribe.save()
-            email = subscribe.cleaned_data['subscribers']
+            user_email = subscribe.cleaned_data['subscribers']
             template = get_template('subscribe_template.html')
             context = {
                 'latest_post':latest_post
@@ -157,12 +164,19 @@ def post_detail(request,slug):
                 'Thank you',
                 content,
                 'Yali Programming' + '',
-                [email],
+                [user_email],
             )
             email.content_subtype = 'html'
             
             # email.attach(image.name,image.read(),image.content_type)
             email.send()
+            new_subscribe = EmailMessage(
+                'New Subscriber',
+                user_email,
+                'Yali Programming' + '',
+                ['mathanbba56@gmail.com'],
+            )
+            new_subscribe.send()
             return redirect('post-detail', slug=slug )
         else:
             subscribe = SubscribeForm()
@@ -317,7 +331,7 @@ def view_category(request,pk):
         subscribe = SubscribeForm(request.POST)
         if subscribe.is_valid():
             subscribe.save()
-            email = subscribe.cleaned_data['subscribers']
+            subscriber_email = subscribe.cleaned_data['subscribers']
             template = get_template('subscribe_template.html')
             context = {
                 'latest_post':latest_post
@@ -327,12 +341,19 @@ def view_category(request,pk):
                 'Thank you',
                 content,
                 'Yali Programming' + '',
-                [email],
+                [subscriber_email],
             )
             email.content_subtype = 'html'
             
             # email.attach(image.name,image.read(),image.content_type)
             email.send()
+            new_subscribe = EmailMessage(
+                'New Subscriber',
+                subscriber_email,
+                'Yali Programming' + '',
+                ['mathanbba56@gmail.com'],
+            )
+            new_subscribe.send()
     return render(request,'view_category.html',{'categories':categories,'category':category})
 
 #Admin Dashboard
