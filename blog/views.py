@@ -311,6 +311,28 @@ def signout(request):
 def view_category(request,pk):
     categories = BlogPost.objects.filter(category=pk)
     category = Category.objects.all()
+    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
+    subscribe = SubscribeForm()
+    if request.method == 'POST':
+        subscribe = SubscribeForm(request.POST)
+        if subscribe.is_valid():
+            subscribe.save()
+            email = subscribe.cleaned_data['subscribers']
+            template = get_template('subscribe_template.html')
+            context = {
+                'latest_post':latest_post
+            }
+            content = template.render(context)
+            email = EmailMessage(
+                'Thank you',
+                content,
+                'Yali Programming' + '',
+                [email],
+            )
+            email.content_subtype = 'html'
+            
+            # email.attach(image.name,image.read(),image.content_type)
+            email.send()
     return render(request,'view_category.html',{'categories':categories,'category':category})
 
 #Admin Dashboard
