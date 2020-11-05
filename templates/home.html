@@ -1,6 +1,8 @@
-{% include 'base.html' %}
-{% block content %}
+{% extends 'links.html' %}
 {% load static %}
+{% block content %}
+
+
 <style>
 
     .banner{
@@ -22,7 +24,7 @@
     }
     
 </style>
-
+{% include 'base.html' %}
 {% if name %}
     <div class="container">
         <div class="card">
