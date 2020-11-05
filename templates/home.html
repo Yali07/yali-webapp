@@ -1,5 +1,7 @@
 {% extends 'links.html' %}
 {% load static %}
+{% block content %}
+
 <style>
 
     .banner{
@@ -21,7 +23,6 @@
     }
     
 </style>
-{% block content %}
 {% include 'base.html' %}
 {% if name %}
     <div class="container">
