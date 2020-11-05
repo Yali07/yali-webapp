@@ -1,8 +1,9 @@
 
-{% extends 'base.html' %}
+{% extends 'links.html' %}
 {% load static %}
 
 {% block content %}
+{% include 'base.html' %}
 <div class="card blog-container">
         <div class="card-body text-size">
             <h3 class="card-title">{{blog.title}}</h3>
