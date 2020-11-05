@@ -1,4 +1,5 @@
 {% extends 'links.html' %}
+{% block content %}
 <nav id="navbar" class="sticky-top">
   <div class="hamburger">
     <div class="line"></div>
@@ -86,9 +87,9 @@
   </form>
   <div class="scrollpath"></div>
 </nav>
-{% block content %}
 
-{% endblock content %}
+
+
 
 <script>
   const hamburger = document.querySelector('.hamburger');
@@ -113,3 +114,4 @@
   });
 
 </script>
+{% endblock %}
