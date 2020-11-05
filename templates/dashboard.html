@@ -1,6 +1,9 @@
-{% extends 'admin_navbar.html' %}
+{% extends 'links.html' %}
+{% load static %}
+
 {% block content %}
 
+{% include 'admin_navbar.html' %}
 {% if messages %}
     {% for message in messages %}
         <div class="alert alert-primary" role="alert">
