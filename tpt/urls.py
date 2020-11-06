@@ -31,6 +31,6 @@ urlpatterns = [
          name='django.contrib.sitemaps.views.sitemap'),
 
 ]
-if settings.Debug:
+if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
     
