@@ -223,6 +223,7 @@ def add_comment(request,slug):
 # Signup, Signin, Signout section
 #@user_only
 def signup(request):
+    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -239,6 +240,32 @@ def signup(request):
                         return redirect('signup')
                     else:
                         user = User.objects.create_user(username=username,email=email,password=password1)
+                        template = get_template('signup_template.html')
+                        context = {
+                            'latest_post':latest_post
+                        }
+                        content = template.render(context)
+                        greeting_email = EmailMessage(
+                            'Welcome to yali family',
+                            content,
+                            'Yali Programming' + '',
+                            [email],
+                        )
+                        greeting_email.content_subtype = 'html'
+                        
+                        # email.attach(image.name,image.read(),image.content_type)
+                        greeting_email.send()
+                        template = get_template("new_user_template.html")
+                        context = {"username":username,"email":email}
+                        content = template.render(context)
+                        new_user = EmailMessage(
+                            'New User',
+                            content,
+                            'Yali Programming' + '',
+                            ['mathanbba56@gmail.com'],
+                        )
+                        new_user.content_subtype = "html"
+                        new_user.send()
                         user.save()
                         user_auth = auth.authenticate(request,username=username,password=password1)
                         if user_auth is not None:

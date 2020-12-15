@@ -29,7 +29,7 @@
     @media screen and (max-width: 768px) {
         #snippet{
         line-height: 20px;
-        font-size: 15px;
+        font-size: 13px;
         word-spacing: 3px;
         word-wrap: unset;
         text-justify: auto;
@@ -47,14 +47,14 @@
 </head>
 <body>
     {% block content %}
-    <h1>Check out our new blog</h1>
+    <h3>Check out our new blog</h3>
     <br>
         {% for blogs in latest_post %}
             {% if blogs.snippet_img_url %}  
                 <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
             {% endif %}
             <br>
-            <h2>{{blogs.title|capfirst}}</h2>
+            <h4>{{blogs.title|capfirst}}</h4>
             <br>
             <p id="snippet">
                 {{blogs.snippet|safe}}.....<a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>

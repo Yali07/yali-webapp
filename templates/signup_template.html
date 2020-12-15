@@ -29,7 +29,7 @@
     @media screen and (max-width: 768px) {
       #snippet{
         line-height: 20px;
-        font-size: 13px;
+        font-size: 15px;
         word-spacing: 3px;
         word-wrap: unset;
         text-justify: auto;
@@ -47,7 +47,7 @@
 </head>
 <body>
     {% block content %}
-      <h3 style="color: black;">Thank You for Subscribe</h3>
+      <h3 style="color: black;">Now you are one of the yali family member.</h3>
       <br>
       <br>
       <h3 style="color: black;">Latest Blogs</h3>
@@ -57,8 +57,7 @@
               <img src="{{blogs.snippet_img_url}}" alt="{{blogs.slug}}.jpg">
           {% endif %}
           <br>
-          <h4 style="color: black;">{{blogs.title|capfirst}}</h4>
-          <br>
+          <h4 style="color: black;margin-bottom:5px;">{{blogs.title|capfirst}}</h4>
           <p id = "snippet">
             {{blogs.snippet|safe}}.....<a href="https://yaliprogramming.herokuapp.com/blog/{{blogs.slug}}">Read More</a>
           </p>
