@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'x3=#u-_bk$s6qjxwrw$6yk8ut9u47f(z7mxp)t#n%$g7i!@_#d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 #DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['*']
 
@@ -131,25 +131,5 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER= os.environ.get('USER_NAME')
 EMAIL_HOST_PASSWORD= os.environ.get('USER_PASSWORD')
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'WARNING',
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': False,
-        },
-    },
-}
 
 django_heroku.settings(locals())
