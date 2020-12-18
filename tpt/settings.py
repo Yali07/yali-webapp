@@ -131,5 +131,23 @@ EMAIL_PORT = 465
 EMAIL_HOST_USER= os.environ.get('USER_NAME')
 EMAIL_HOST_PASSWORD= os.environ.get('USER_PASSWORD')
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/django/debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
 
 django_heroku.settings(locals())
