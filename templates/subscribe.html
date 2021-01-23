@@ -1,9 +1,13 @@
 <div class="container">
     <div id="subscribe" class="sc-title">
         <h2   class="card-title text-center">Get our NewsLetters</h2><br>
-        <form method='POST' class="form-inline my-2 my-sm-0 align-center">
+        <form action="{% url 'subscribe' %}" method='POST' class="form-inline my-2 my-sm-0 align-center">
             {% csrf_token %}
             <input name='subscribers' class="form-control subscribe-input " type="email" placeholder="eg: example@gmail.com">
+            <!-- a-s-re (After subscribe redirect) -->
+            {% if request.path %}
+                <input type="hidden" name="a-s-re" value="{{request.scheme}}://{{request.get_host}}{{request.path}}">
+            {% endif %}
             <button class="subscribe-btn" type="submit"> 
                 Subscribe
             </button>

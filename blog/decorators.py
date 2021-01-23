@@ -8,10 +8,4 @@ def superuser_only(view_func):
         else:
             return redirect('/')
     return wrapper_func
-def user_only(view_func):
-    def wrapper_func(request,*args,**kwargs):
-        if not request.user.is_superuser:
-            return view_func(request,*args,**kwargs)
-        else:
-            return redirect('dashboard')
-    return wrapper_func
+

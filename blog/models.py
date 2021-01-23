@@ -47,7 +47,7 @@ class Category(models.Model):
     def __str__(self):
         return self.category_name
 class Subscribe(models.Model):
-    subscribers = models.CharField(max_length=108,null=True)
+    subscribers = models.EmailField(unique=True)
     def __str__(self):
         return self.subscribers
 class NewsLetter(models.Model):

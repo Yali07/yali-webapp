@@ -3,7 +3,7 @@
 
 {% block content %}
 {% include 'base.html' %}
-{% if categories %}
+
 <br>
 <div style="background-color: white;" class="container">
     <div class="row">
@@ -23,26 +23,28 @@
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                <div class="blog-container">
+                    <br>
+                    <h1>Sorry this category has not any blogs</h1>
+                    <br>
+                    <h3>Available Categories :</h3>
+                    <br>
+                    <ul>
+                        {% for categories in category %}
+                            <li>
+                                <a href="{% url 'view_category' categories %}">{{categories}}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                </div>
             {% endfor %}
         </div>
 </div>
-{% else %}
-<div class="blog-container">
-    <br>
-    <h1>Sorry this category doesn't exists</h1>
-    <br>
-    <h3>Available Categories :</h3>
-    <br>
-    <ul>
-        {% for categories in category %}
-            <li>
-                <a href="{% url 'view_category' categories %}">{{categories}}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <br>
-</div>
-{% endif %}
+
+
+
 <br>
 <br>
 

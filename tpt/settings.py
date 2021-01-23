@@ -22,7 +22,7 @@ SECRET_KEY = 'x3=#u-_bk$s6qjxwrw$6yk8ut9u47f(z7mxp)t#n%$g7i!@_#d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 #DEBUG_PROPAGATE_EXCEPTIONS = True
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'tpt.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR,'templates'],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,12 +75,12 @@ WSGI_APPLICATION = 'tpt.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#   'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-# }
+DATABASES = {
+  'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+   }
+}
 
 
 # Password validation
@@ -119,8 +119,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR,"staticfiles")]
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR,"staticfiles")]
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 
@@ -132,4 +132,4 @@ EMAIL_HOST_USER= os.environ.get('USER_NAME')
 EMAIL_HOST_PASSWORD= os.environ.get('USER_PASSWORD')
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())

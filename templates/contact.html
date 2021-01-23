@@ -4,7 +4,7 @@
 <p style="color: white;" class="text-center">Do not hesitate to contact us. Ask any questions you want. We answer your question as soon as possible. </p>
 <br>
 <br>
-<form action="{% url 'home' %}" id="contact-form" name="contact-form" method="POST">
+<form action="{% url 'contact' %}" id="contact-form" name="contact-form" method="POST">
     {% csrf_token %}
     <div class="form-inline">
         <div class="form-group mb-2">
@@ -19,6 +19,10 @@
     <br>
     <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea " placeholder="Type your message" required></textarea>
     <br>
+    <!-- a-c-re (After contact redirect) -->
+    {% if request.path %}
+        <input type="hidden" name="a-c-re" value="{{request.scheme}}://{{request.get_host}}{{request.path}}">
+    {% endif %}
     <button style="margin-left: 55%;" type="submit" class="btn btn-primary mb-2 ">Send</button>
 </form>
 </div>

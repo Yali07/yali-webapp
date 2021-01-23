@@ -1,21 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import BlogPost, Category
-from django.views.generic import CreateView
 from .forms import *
 from .filter import BlogFilter
 from django.core.paginator import Paginator
-from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, auth
 from django.contrib import messages
-from django.core.mail import send_mail, EmailMessage,EmailMultiAlternatives
+from django.core.mail import EmailMessage
 from django.template.loader import get_template
-import os
-from .decorators import superuser_only, user_only
-from random import randint
-# Create your views here.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-# Home
-#@user_only
+from .decorators import superuser_only
+
+# Home view
 def home(request):
     blog = BlogPost.objects.all().order_by('-date')
     myfilter = BlogFilter(request.GET,queryset=blog)
@@ -24,127 +19,27 @@ def home(request):
     page_number = request.GET.get('page')
     page_obj = p.get_page(page_number)
     
-
     # Category
-
     category = Category.objects.all()
-
-    #Contact Form
-
-    name = request.POST.get('name')
-    forms = ContactForm()
-    if request.method == 'POST':
-        forms = ContactForm(request.POST)
-        if forms.is_valid():
-            email = request.POST.get('email')
-            subject = request.POST.get('name')
-            message = request.POST.get('message','')
-
-            template = get_template('contact_template.txt')
-            context = {
-                'name': subject,
-                'email': email,
-                'message': message
-            }
-            content = template.render(context)
-            email_msg = EmailMessage(
-                'New contact form submission',
-                content,
-                'Yali Programming' + '',
-                ['mathanbba56@gmail.com'],
-                headers = { 'Reply-To': email }
-            )
-            email_msg.send()
-        else:
-            forms = ContactForm()
-    else:
-        forms = ContactForm()
-    # Subscribe Form
-    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
-    email = Subscribe.objects.all()
-    subscribers = []
-    for emails in email:
-        subscribers.append(emails)
-    subscribe = SubscribeForm()
-    if request.method == 'POST':
-        subscribe = SubscribeForm(request.POST)
-        
-        if subscribe.is_valid():
-            subscribe.save()
-            user_email = subscribe.cleaned_data['subscribers']
-            template = get_template('subscribe_template.html')
-            context = {
-                'latest_post':latest_post
-            }
-            content = template.render(context)
-            email = EmailMessage(
-                'Thank you',
-                content,
-                'Yali Programming' + '',
-                [user_email],
-            )
-            email.content_subtype = 'html'
-            
-            # email.attach(image.name,image.read(),image.content_type)
-            email.send()
-            new_subscribe = EmailMessage(
-                'New Subscriber',
-                user_email,
-                'Yali Programming' + '',
-                ['mathanbba56@gmail.com'],
-            )
-            new_subscribe.send()
-            return redirect('home')
-        else:
-            subscribe = SubscribeForm()
-    else:
-        subscribe = SubscribeForm()
     context= {
         'blogs':page_obj,
         'category':category,
         'forms':forms,
-        'name':name,
         'subscribe':subscribe
     }
     return render(request,'home.html',context)
 
-# Blog post and Comment section 
-
-#@user_only
-
+# Blog post detail view
 def post_detail(request,slug):
     blog = get_object_or_404(BlogPost,slug=slug)
     latest_post = BlogPost.objects.all().order_by('-date')[0:5]
     category = Category.objects.all()
     name = request.POST.get('name')
-    # Contact Form
-    forms = ContactForm()
-    if request.method == 'POST':
-        forms = ContactForm(request.POST)
-        if forms.is_valid():
-            email = request.POST.get('email')
-            subject = request.POST.get('name')
-            message = request.POST.get('message','')
-            template = get_template('contact_template.txt')
-            context = {
-                'name': subject,
-                'email': email,
-                'message': message
-            }
-            content = template.render(context)
-            email_msg = EmailMessage(
-                'New contact form submission',
-                content,
-                'Yali Programming' + '',
-                ['mathanbba56@gmail.com'],
-                headers = { 'Reply-To': email }
-            )
-            email_msg.send()
-        else:
-            forms = ContactForm()
-    else:
-        forms = ContactForm()
-    # Subscribe Form
+    return render(request,'post_detail.html',{'blog':blog,'latest_post':latest_post,'category':category,'forms':forms,'name':name,'subscribe': subscribe})
+
+# Subscribe view
+def subscribe(request):
+    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
     email = Subscribe.objects.all()
     subscribers = []
     for emails in email:
@@ -167,8 +62,6 @@ def post_detail(request,slug):
                 [user_email],
             )
             email.content_subtype = 'html'
-            
-            # email.attach(image.name,image.read(),image.content_type)
             email.send()
             new_subscribe = EmailMessage(
                 'New Subscriber',
@@ -177,13 +70,46 @@ def post_detail(request,slug):
                 ['mathanbba56@gmail.com'],
             )
             new_subscribe.send()
-            return redirect('post-detail', slug=slug )
+            return redirect(request.POST.get('a-s-re'))
         else:
-            subscribe = SubscribeForm()
+            messages.info(request,"Invalid email or email already exists")
+            return redirect(request.POST.get('a-s-re'))
     else:
-        subscribe = SubscribeForm()
-    return render(request,'post_detail.html',{'blog':blog,'latest_post':latest_post,'category':category,'forms':forms,'name':name,'subscribe': subscribe})
-#@user_only
+        messages.info(request,"Post failed try again")
+        return redirect(request.POST.get('a-s-re'))
+
+# Contact View
+def contact(request):
+    forms = ContactForm()
+    if request.method == 'POST':
+        forms = ContactForm(request.POST)
+        if forms.is_valid():
+            email = request.POST.get('email')
+            subject = request.POST.get('name')
+            message = request.POST.get('message','')
+            template = get_template('contact_template.txt')
+            context = {
+                'name': subject,
+                'email': email,
+                'message': message
+            }
+            content = template.render(context)
+            email_msg = EmailMessage(
+                'New contact form submission',
+                content,
+                'Yali Programming' + '',
+                ['mathanbba56@gmail.com'],
+                headers = { 'Reply-To': email }
+            )
+            email_msg.send()
+            return redirect(request.POST.get('a-c-re'))
+        else:
+            return redirect(request.POST.get('a-c-re'))
+    else:
+        return redirect(request.POST.get('a-s-re'))
+
+# Comment create view
+@login_required(login_url='/signup')
 def add_comment(request,slug):
     post = get_object_or_404(BlogPost,slug=slug)
     form = CommentForm()
@@ -211,8 +137,6 @@ def add_comment(request,slug):
                 ['mathanbba56@gmail.com'],
             )
             email.content_subtype = 'html'
-            
-            # email.attach(image.name,image.read(),image.content_type)
             email.send()
             return redirect('post-detail',slug=slug)
         else:
@@ -221,7 +145,6 @@ def add_comment(request,slug):
     return render (request,'add_comment.html',{'form':form})
 
 # Signup, Signin, Signout section
-#@user_only
 def signup(request):
     latest_post = BlogPost.objects.all().order_by('-date')[0:5]
     if request.method == 'POST':
@@ -252,8 +175,6 @@ def signup(request):
                             [email],
                         )
                         greeting_email.content_subtype = 'html'
-                        
-                        # email.attach(image.name,image.read(),image.content_type)
                         greeting_email.send()
                         template = get_template("new_user_template.html")
                         context = {"username":username,"email":email}
@@ -270,7 +191,10 @@ def signup(request):
                         user_auth = auth.authenticate(request,username=username,password=password1)
                         if user_auth is not None:
                             auth.login(request,user_auth)
-                            return redirect('/')
+                            if "a-sup-re" in request.POST:
+                                return redirect(request.POST.get('a-sup-re'))
+                            else:
+                                return redirect('/')
                         else:
                             messages.info(request,"Somthing went wrong please signup again")
                             return redirect('signup')
@@ -282,105 +206,32 @@ def signup(request):
             return redirect('signup')
     else:
         return render(request,'users/signup.html')
-#@user_only
+
 def signin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-
         user = auth.authenticate(request,username=username,password=password)
         if user is not None:
             auth.login(request,user)
-            return redirect('/')
+            if "next" in request.POST:
+                return redirect(request.POST.get('a-sup-re'))
+            else:
+                return redirect('/')
         else:
             messages.info(request,'Invalid username or password')
             return redirect('signin')
     else:
         return render(request,'users/signin.html')
-#@user_only
-def comment_signup(request,slug):
-    post = get_object_or_404(BlogPost,slug=slug)
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
 
-        if not len(password1) < 8:
-            if password1 == password2:
-                if User.objects.filter(username=username).exists():
-                    messages.info(request,"Username already exists")
-                else:
-                    if User.objects.filter(email=email).exists():
-                        messages.info(request,"email already used try different email")
-                    else:
-                        user = User.objects.create_user(username=username,email=email,password=password1)
-                        user.save()
-                        user_auth = auth.authenticate(request,username=username,password=password1)
-                        if user_auth is not None:
-                            auth.login(request,user_auth)
-                            return redirect('post-detail',slug=slug)
-                        else:
-                            messages.info(request,"Somthing went wrong please signup again")
-            else:
-                messages.info(request,"password not match")
-        else:
-            messages.info(request,"Your password must contain atleast 8 characters")
-            return redirect('comment_signup',slug=slug)
-        
-    return render(request,'users/comment_signup.html',{'blog': post})
-#@user_only
-def comment_signin(request,slug):
-    post = get_object_or_404(BlogPost,slug=slug)
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-
-        user = auth.authenticate(request,username=username,password=password)
-        if user is not None:
-            auth.login(request,user)
-            return redirect('post-detail', slug=slug)
-        else:
-            messages.info(request,'Invalid username or password')
-            return redirect('comment_signup',slug=slug)
-        
-    return render(request,'users/comment_signin.html',{'blog': post})
 def signout(request):
     auth.logout(request)
     return redirect('/')
-#@user_only
+
+# Category view
 def view_category(request,pk):
     categories = BlogPost.objects.filter(category=pk)
     category = Category.objects.all()
-    latest_post = BlogPost.objects.all().order_by('-date')[0:5]
-    subscribe = SubscribeForm()
-    if request.method == 'POST':
-        subscribe = SubscribeForm(request.POST)
-        if subscribe.is_valid():
-            subscribe.save()
-            subscriber_email = subscribe.cleaned_data['subscribers']
-            template = get_template('subscribe_template.html')
-            context = {
-                'latest_post':latest_post
-            }
-            content = template.render(context)
-            email = EmailMessage(
-                'Thank you',
-                content,
-                'Yali Programming' + '',
-                [subscriber_email],
-            )
-            email.content_subtype = 'html'
-            
-            # email.attach(image.name,image.read(),image.content_type)
-            email.send()
-            new_subscribe = EmailMessage(
-                'New Subscriber',
-                subscriber_email,
-                'Yali Programming' + '',
-                ['mathanbba56@gmail.com'],
-            )
-            new_subscribe.send()
     return render(request,'view_category.html',{'categories':categories,'category':category})
 
 #Admin Dashboard
@@ -398,8 +249,9 @@ def dashboard(request):
             print('form invalid')
     else:
         forms = CategoryForm()
-    
     return render(request,'dashboard.html',{'blog':blog,'forms':forms,'myfilter':myfilter})
+
+# Newsletter view
 @superuser_only
 def newsletter(request):
     latest_post = BlogPost.objects.all().order_by('-date')[1:5]
@@ -410,13 +262,9 @@ def newsletter(request):
     forms = NewslettertForm()
     if request.method == 'POST':
         forms = NewslettertForm(request.POST,request.FILES)
-        
         if forms.is_valid():
             newsletter_subject = forms.cleaned_data['subject']
             newsletter_message = forms.cleaned_data['message']
-            # image = forms.cleaned_data['email_pics']
-
-
             template = get_template('newsletters_template.html')
             context = {
                 'message': newsletter_message,
@@ -430,8 +278,6 @@ def newsletter(request):
                 subscribers,
             )
             email.content_subtype = 'html'
-            
-            # email.attach(image.name,image.read(),image.content_type)
             email.send()
             messages.info(request,'Newsletter send successfully')
             return redirect('dashboard')
@@ -440,7 +286,8 @@ def newsletter(request):
     else:
         forms = NewslettertForm()
     return render(request,'newsletters.html',{'forms':forms})
-# Create, Update, Delete post section
+
+# Post create view
 @superuser_only
 def new_post(request):
     latest_post = BlogPost.objects.all().order_by('-date')[0:1]
@@ -467,7 +314,6 @@ def new_post(request):
             )
             email.content_subtype = 'html'
             
-            # email.attach(image.name,image.read(),image.content_type)
             email.send()
             return redirect('dashboard')
         else:
@@ -475,6 +321,8 @@ def new_post(request):
     else:
         forms = NewPostCreateForm()
     return render(request,'new-post.html',{'forms':forms})
+
+# Post update view
 @superuser_only
 def update_post(request,slug):
     blog = BlogPost.objects.get(slug=slug)
@@ -485,8 +333,10 @@ def update_post(request,slug):
             forms.save()
             return redirect('dashboard')
         else:
-            print('form invalid')
+            forms = NewPostCreateForm(instance=blog)
     return render(request,'new-post.html',{'forms':forms})
+
+# Post delete view
 @superuser_only
 def delete_post(request,slug):
     blog_post = BlogPost.objects.get(slug=slug)
