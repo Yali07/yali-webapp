@@ -109,7 +109,7 @@ def home(request):
         'category':category,
         'forms':forms,
         'name':name,
-        'subscribe':subscribe
+        'subscribe':subscribe,
         'ip_address':ip
     }
     return render(request,'home.html',context)
