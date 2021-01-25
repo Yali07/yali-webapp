@@ -17,11 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Home
 #@user_only
 def home(request):
-    ip_address = request.META.get("HTTP_X_FORWARDED_FOR")
-    if ip_address:
-    	ip = ip_address.split(",")[0]
-    else:
-    	ip = request.META.get("REMOTE_ADDR")
+   
     blog = BlogPost.objects.all().order_by('-date')
     myfilter = BlogFilter(request.GET,queryset=blog)
     blog = myfilter.qs
@@ -110,7 +106,7 @@ def home(request):
         'forms':forms,
         'name':name,
         'subscribe':subscribe,
-        'ip_address':ip
+       
     }
     return render(request,'home.html',context)
 
